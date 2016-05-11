@@ -1,0 +1,29 @@
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.exe.config
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.exe
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.pdb
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.csprojResolveAssemblyReference.cache
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\MainWindow.g.cs
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\App.g.cs
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4_MarkupCompile.cache
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4_MarkupCompile.lref
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\MainWindow.baml
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.g.resources
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.Properties.Resources.resources
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.csproj.GenerateResource.Cache
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.exe
+h:\windows7\documents\visual studio 2015\Projects\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.pdb
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.exe.config
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.exe
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.pdb
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.exe
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\bin\Debug\WindowsProgrammingWPFLab4.pdb
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.csprojResolveAssemblyReference.cache
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\MainWindow.g.cs
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\App.g.cs
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4_MarkupCompile.cache
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4_MarkupCompile.lref
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\MainWindow.baml
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.g.resources
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.Properties.Resources.resources
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\WindowsProgrammingWPFLab4.csproj.GenerateResource.Cache
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\GeneratedInternalTypeHelper.g.cs
