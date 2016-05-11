@@ -22,10 +22,15 @@ namespace WindowsProgrammingWPFLab4
     
     public partial class MainWindow : Window
     {
-       
+
+        public int boardSize = 9;
+        public int BoardSize
+        {
+            get { return boardSize; }
+            //set { boardSize = value; }
+        }
 
         
-        const int BOARD_SIZE = 9;
         private ContextMenu menu;
         SudokuInfoCollection SudokuInfos;
         List<SudokuButtonInfo> sudokuButtons;
@@ -33,11 +38,12 @@ namespace WindowsProgrammingWPFLab4
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
             sudokuButtons = new List<SudokuButtonInfo>();
             ////////////////////////
             menu = new ContextMenu(); 
 
-            for (int k = 1; k <= BOARD_SIZE; k++)
+            for (int k = 1; k <= BoardSize; k++)
             {
                 MenuItem mi = new MenuItem();
                 mi.Header = k.ToString();
@@ -48,10 +54,10 @@ namespace WindowsProgrammingWPFLab4
             }
             //////////////////////////
             
-            for (int i = 0; i < BOARD_SIZE; i++)
+            for (int i = 0; i < BoardSize; i++)
             {
 
-                for (int j = 0; j < BOARD_SIZE; j++)
+                for (int j = 0; j < BoardSize; j++)
                 {
                     SudokuButtonInfo info = new SudokuButtonInfo(i,j,"R:"+i+"C:"+j);//this is tempory, later the content will be a binding in the XAML file
                     sudokuButtons.Add(info);
@@ -62,6 +68,9 @@ namespace WindowsProgrammingWPFLab4
             SudokuInfos = new SudokuInfoCollection();
             SudokuInfos.Add(sudokuButtons);
             SudokuGridLayout.ItemsSource = SudokuCollection;
+           
+          
+            
             /*
                 for (int i = 0; i < BOARD_SIZE; i++) {
                     ColumnDefinition cd = new ColumnDefinition();

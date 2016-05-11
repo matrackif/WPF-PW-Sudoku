@@ -11,12 +11,7 @@ namespace WindowsProgrammingWPFLab4
 
     public class GridHelpers
     {
-        public int boardSize = 9;
-        public int BoardSize
-        {
-            get { return boardSize; }
-            //set { boardSize = value; }
-        }
+       
 
         #region RowCount Property
 

@@ -11,12 +11,7 @@ namespace WindowsProgrammingWPFLab4
         int rowIndex;
         int columnIndex;
         string name;
-        public int boardSize = 9;
-        public int BoardSize
-        {
-            get { return boardSize; }
-            //set { boardSize = value; }
-        }
+       
         public SudokuButtonInfo()
         {
         }
@@ -25,7 +20,7 @@ namespace WindowsProgrammingWPFLab4
             rowIndex = rowIdx;
             columnIndex = colIdx;
             name = _name;
-            boardSize = 9;
+            
         }
         public int RowIndex
         {

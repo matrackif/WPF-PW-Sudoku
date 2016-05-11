@@ -57,8 +57,8 @@
             <!-- ItemsPanelTemplate -->
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Name="SudokuGrid"  local:GridHelpers.RowCount="{Binding BoardSize}"
-                     local:GridHelpers.ColumnCount="{Binding BoardSize}">
+                    <Grid Name="SudokuGrid"  local:GridHelpers.RowCount="{Binding Path=BoardSize}"
+                     local:GridHelpers.ColumnCount="{Binding Path=BoardSize}">
 
 
                     </Grid>
