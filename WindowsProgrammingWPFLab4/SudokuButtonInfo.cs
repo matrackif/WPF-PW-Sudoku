@@ -15,6 +15,10 @@ namespace WindowsProgrammingWPFLab4
         public SudokuButtonInfo()
         {
         }
+        public SudokuButtonInfo(string _name)
+        {
+            name = _name;
+        }
         public SudokuButtonInfo(int rowIdx,int colIdx, string _name)
         {
             rowIndex = rowIdx;

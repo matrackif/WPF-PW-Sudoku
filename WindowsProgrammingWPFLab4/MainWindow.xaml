@@ -5,27 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsProgrammingWPFLab4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600"
+        Title="MainWindow" Height="537.234" Width="691.489"
         MinHeight="500"
         MinWidth="600">
     <Window.Resources>
-        <ContextMenu x:Key="SudokuMenu">
-            <MenuItem Header="1"/>
-            <MenuItem Header="2"/>
-            <MenuItem Header="3"/>
-            <MenuItem Header="4"/>
-            <MenuItem Header="5"/>
-            <MenuItem Header="6"/>
-            <MenuItem Header="7"/>
-            <MenuItem Header="8"/>
+        <ContextMenu x:Key="SudokuMenu" Name="ButtonMenu">
         </ContextMenu>
+        <local:SudokuColumnToBackgroundConverter x:Key="ColumnConverter"/>
     </Window.Resources>
 
     <Grid Margin="0,0,2,3">
 
         <Grid.RowDefinitions>
 
-            <RowDefinition Height="63"/>
+            <RowDefinition Height="17.681"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="279"/>
             <RowDefinition/>
             <RowDefinition Height="0"/>
@@ -37,15 +32,19 @@
 
             <ColumnDefinition Width="420"/>
             <ColumnDefinition Width="50"/>
+            
+            <ColumnDefinition Width="45"/>
         </Grid.ColumnDefinitions>
 
 
-        <!--<Grid Name="TopGreenButtonGrid" Grid.Row="0" Grid.Column="1" local:GridHelpers.RowCount="{Binding BoardSize}"
-      local:GridHelpers.ColumnCount="{Binding BoardSize}"></Grid>-->
-        <Grid Name="RightGreenButtonGrid" Grid.Row="1" Grid.Column="2">
-            <TextBlock></TextBlock></Grid>
-        <Grid Name="RadioButtonGrid" Grid.Row="2" Grid.Column="1"></Grid>
-        <Menu x:Name="MainMenu" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="276" >
+
+
+
+        <Grid Name="RightButtonGrid" Grid.Row="3" Grid.Column="2" Margin="2,0,1,0">
+            <TextBlock></TextBlock>
+        </Grid>
+
+        <Menu x:Name="MainMenu" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="681" Grid.RowSpan="2" >
             <MenuItem Header="Main Menu">
                 <MenuItem Header="New Game"></MenuItem>
                 <MenuItem Header="High scores"></MenuItem>
@@ -53,19 +52,19 @@
             </MenuItem>
 
         </Menu>
-        <ItemsControl Name="SudokuGridLayout" Grid.Row="1" Grid.Column="1">
-            <!-- ItemsPanelTemplate -->
+        <!--The Items Control for the Sudoku buttons:-->
+        <ItemsControl Name="SudokuGridLayout" Grid.Row="3" Grid.Column="1"  >
+
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Name="SudokuGrid"  local:GridHelpers.RowCount="{Binding Path=BoardSize}"
-                     local:GridHelpers.ColumnCount="{Binding Path=BoardSize}">
-
-
+                    <Grid x:Name="SudokuGrid"  
+                        local:GridHelpers.RowCount="{Binding Path=BoardSize}"
+                        local:GridHelpers.StarRows="{Binding Path=StarRowsAndColumns}"
+                        local:GridHelpers.ColumnCount="{Binding Path=BoardSize}" 
+                        local:GridHelpers.StarColumns="{Binding Path=StarRowsAndColumns}">
                     </Grid>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-
-            <!-- ItemContainerStyle -->
             <ItemsControl.ItemContainerStyle>
                 <Style>
                     <Setter Property="Grid.Column"
@@ -75,7 +74,93 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
 
-            <!-- ItemTemplate -->
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" ContextMenu="{StaticResource SudokuMenu}" >
+                      
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--The Items Control for the Radio buttons:-->
+        <ItemsControl Name="RadioButtonLayout" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="1,0,48,0">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Name="RadioButtonPanel" Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding ColumnIndex}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding RowIndex}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <RadioButton Content="{Binding Name}"  />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--The Items Control for the top buttons:-->
+        <ItemsControl Name="TopGridLayout" Grid.Row="1" Grid.Column="1">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Name="TopGrid"  
+                        
+                        local:GridHelpers.ColumnCount="{Binding Path=BoardSize}" 
+                        local:GridHelpers.StarColumns="{Binding Path=StarRowsAndColumns}">
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding ColumnIndex}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding RowIndex}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" Background="{Binding ElementName=SudokuGridLayout,  Converter={StaticResource ColumnConverter}}" >
+                       
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--The Items Control for the right buttons:-->
+        <ItemsControl Name="RightGridLayout" Grid.Row="3" Grid.Column="3">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Name="RightGrid"  
+                        
+                        local:GridHelpers.RowCount="{Binding Path=BoardSize}" 
+                        local:GridHelpers.StarRows="{Binding Path=StarRowsAndColumns}">
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Column"
+                    Value="{Binding ColumnIndex}" />
+                    <Setter Property="Grid.Row"
+                    Value="{Binding RowIndex}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding Name}" />
