@@ -1,30 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace WindowsProgrammingWPFLab4
 {
-    public class SudokuButtonInfo
+    public class SudokuButtonInfo : INotifyPropertyChanged
     {
         int rowIndex;
         int columnIndex;
         string name;
-       
+        Brush b;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
         public SudokuButtonInfo()
         {
         }
         public SudokuButtonInfo(string _name)
         {
             name = _name;
+           
         }
-        public SudokuButtonInfo(int rowIdx,int colIdx, string _name)
+        public SudokuButtonInfo(int rowIdx,int colIdx, string _name,Brush br)
         {
             rowIndex = rowIdx;
             columnIndex = colIdx;
             name = _name;
-            
+            b = br;
         }
         public int RowIndex
         {
@@ -39,7 +51,17 @@ namespace WindowsProgrammingWPFLab4
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set { name = value;
+                RaisePropertyChanged("Name");
+            }
+        }
+        public Brush BackgroundColor
+        {
+            get { return b; }
+            set {
+                b = value;
+                RaisePropertyChanged("BackgroundColor");
+            }
         }
   
     }

@@ -35,6 +35,8 @@ namespace WindowsProgrammingWPFLab4
             get { return StarRowColoumnFormattedString; }
             set { StarRowColoumnFormattedString = value; }
         }
+
+      
         SudokuInfoCollection TopButtonInfoCollection;
         SudokuInfoCollection RightButtonInfoCollection;    
         SudokuInfoCollection SudokuButtonInfoCollection;
@@ -64,8 +66,8 @@ namespace WindowsProgrammingWPFLab4
             for (int k = 1; k <= BoardSize; k++)
             {
                 SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString());
-                SudokuButtonInfo TopButtonInfo = new SudokuButtonInfo(0,k-1,"");
-                SudokuButtonInfo RightButtonInfo = new SudokuButtonInfo(k-1,0,"");
+                SudokuButtonInfo TopButtonInfo = new SudokuButtonInfo(0,k-1,"",new SolidColorBrush(Colors.Green));
+                SudokuButtonInfo RightButtonInfo = new SudokuButtonInfo(k-1,0,"", new SolidColorBrush(Colors.Green));
                 RadioButtonInfos.Add(RadioButtonInfo);
                 TopButtonInfos.Add(TopButtonInfo);
                 RightButtonInfos.Add(RightButtonInfo);
@@ -83,7 +85,7 @@ namespace WindowsProgrammingWPFLab4
                 StarRowColoumnFormattedString += (i+",");
                 for (int j = 0; j < BoardSize; j++)
                 {
-                    SudokuButtonInfo info = new SudokuButtonInfo(i,j,"");//this sets the row index and column index for the Grid inside the ItemsControl
+                    SudokuButtonInfo info = new SudokuButtonInfo(i,j,"", new SolidColorBrush(Colors.White));//this sets the row index and column index for the Grid inside the ItemsControl
                     SudokuButtonInfos.Add(info);
                 }
 
@@ -102,8 +104,7 @@ namespace WindowsProgrammingWPFLab4
             RightButtonInfoCollection.Add(RightButtonInfos);
             RightGridLayout.ItemsSource = RightButtonInfoCollection;
 
-          
-
+        
         }
 
      
@@ -115,9 +116,57 @@ namespace WindowsProgrammingWPFLab4
             MenuItem menuItem = sender as MenuItem;
             ContextMenu menu = menuItem.Parent as ContextMenu;        
             Button b = menu.PlacementTarget as Button;          
-            b.Content = (menuItem.Header as string);
             
-            
+            string[] RowAndCol = DecodeTag(b.Tag.ToString());
+            int row = int.Parse(RowAndCol[0]);
+            int col = int.Parse(RowAndCol[1]);
+
+            List<int> ElementsInSameRow = new List<int>();
+            List<int> ElementsInSameColumn = new List<int>();
+            // MessageBox.Show("Clicked on button with row: " + row+" And column: "+col);
+
+            foreach (SudokuButtonInfo info in SudokuButtonInfos)
+             {
+
+                 if(info.RowIndex == row && info.ColumnIndex == col)
+                  {
+                    info.Name = (menuItem.Header as string);
+                    if (!info.Name.Equals(""))
+                    {
+                        ElementsInSameRow.Add(int.Parse(info.Name));
+                        ElementsInSameColumn.Add(int.Parse(info.Name));
+                    }
+                    //changing the property of the specific button so GUI can draw new button            
+                 }
+                 else if(info.RowIndex == row && !info.Name.Equals(""))
+                    ElementsInSameRow.Add(int.Parse(info.Name));
+                 else if (info.ColumnIndex == col && !info.Name.Equals(""))
+                    ElementsInSameColumn.Add(int.Parse(info.Name));
+            }
+
+          if((ElementsInSameRow.Count() == ElementsInSameRow.Distinct().Count()))//means we have all unique elements
+            {
+                //MessageBox.Show("Same elements: "+ ElementsInSameRow.Count()+" Distinct: "+ ElementsInSameRow.Distinct().Count());
+                RightButtonInfos[row].BackgroundColor = new SolidColorBrush(Colors.Green);
+
+            }
+            else
+            {
+                RightButtonInfos[row].BackgroundColor = new SolidColorBrush(Colors.Red);
+            }
+          //////Now we check the columns
+            if ((ElementsInSameColumn.Count() == ElementsInSameColumn.Distinct().Count()))//means we have all unique elements
+            {
+                //MessageBox.Show("Same elements: " + ElementsInSameRow.Count() + " Distinct: " + ElementsInSameRow.Distinct().Count());
+                TopButtonInfos[col].BackgroundColor = new SolidColorBrush(Colors.Green);
+
+            }
+            else
+            {
+                TopButtonInfos[col].BackgroundColor = new SolidColorBrush(Colors.Red);
+            }
+
+
 
 
         }
@@ -125,6 +174,18 @@ namespace WindowsProgrammingWPFLab4
         {
             get { return SudokuButtonInfoCollection; }
         }
-            
+        public string[] DecodeTag(string s)//decoding the string of the button tag, row is left of "." and col is the right of "."
+        {
+            string[] strings = new string[2];
+            int l = s.IndexOf(".");
+            if (l > 0)
+            {
+              strings[0] = s.Substring(0, l);
+            }
+            strings[1] = s.Substring(l + 1);
+            return strings;
+
+        }
+
     }
 }

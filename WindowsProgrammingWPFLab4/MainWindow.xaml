@@ -11,7 +11,7 @@
     <Window.Resources>
         <ContextMenu x:Key="SudokuMenu" Name="ButtonMenu">
         </ContextMenu>
-        <local:SudokuColumnToBackgroundConverter x:Key="ColumnConverter"/>
+        <local:RowColumnToTagConverter x:Key="TagConverter"/>
     </Window.Resources>
 
     <Grid Margin="0,0,2,3">
@@ -77,8 +77,14 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" ContextMenu="{StaticResource SudokuMenu}" >
-                      
+                    <Button Content="{Binding Name}" ContextMenu="{StaticResource SudokuMenu}" Background="{Binding BackgroundColor}" >
+                        <Button.Tag>
+                            <MultiBinding Converter="{StaticResource TagConverter}">
+                                <Binding Path="RowIndex" />
+                                <Binding Path="ColumnIndex" />
+                            </MultiBinding>
+                        </Button.Tag>
+                        
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -133,7 +139,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" Background="{Binding ElementName=SudokuGridLayout,  Converter={StaticResource ColumnConverter}}" >
+                    <Button Content="{Binding Name}" Background="{Binding BackgroundColor}" >
                        
                     </Button>
                 </DataTemplate>
@@ -163,7 +169,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Name}" />
+                    <Button Content="{Binding Name}" Background="{Binding BackgroundColor}"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
