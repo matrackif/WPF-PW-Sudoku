@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -18,13 +17,13 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using System.Diagnostics;
 
+
 namespace WindowsProgrammingWPFLab4
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NewGameWindow.xaml
     /// </summary>
-    
-    public partial class MainWindow : Window,INotifyPropertyChanged
+    public partial class NewGameWindow : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public int boardSize;
@@ -34,14 +33,14 @@ namespace WindowsProgrammingWPFLab4
         DispatcherTimer GameTimer;
         Stopwatch GameStopwatch;
         SudokuInfoCollection TopButtonInfoCollection;
-        SudokuInfoCollection RightButtonInfoCollection;    
+        SudokuInfoCollection RightButtonInfoCollection;
         SudokuInfoCollection SudokuButtonInfoCollection;
         SudokuInfoCollection RadioButtonInfoCollection;
         List<SudokuButtonInfo> SudokuButtonInfos;
         List<SudokuButtonInfo> RadioButtonInfos;
         List<SudokuButtonInfo> TopButtonInfos;
         List<SudokuButtonInfo> RightButtonInfos;
-        public MainWindow()
+        public NewGameWindow(int bSize)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -51,9 +50,10 @@ namespace WindowsProgrammingWPFLab4
             GameStopwatch = new Stopwatch();
             GameTimer.Interval = new TimeSpan(0, 0, 1);
             GameTimer.Tick += GameTimer_Tick;
-           
-            boardSize = 9;
-            
+            GameTimer.Start();
+            GameStopwatch.Start();
+            boardSize = bSize;
+
             //The Lists that will hold the information of the buttons
             SudokuButtonInfos = new List<SudokuButtonInfo>();
             RadioButtonInfos = new List<SudokuButtonInfo>();
@@ -65,37 +65,37 @@ namespace WindowsProgrammingWPFLab4
             TopButtonInfoCollection = new SudokuInfoCollection();
             RightButtonInfoCollection = new SudokuInfoCollection();
             ////////////////////////
-          
+
 
             for (int k = 1; k <= BoardSize; k++)
             {
-                SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString(),false);
-                SudokuButtonInfo TopButtonInfo = new SudokuButtonInfo(0,k-1,"",new SolidColorBrush(Colors.Green));
-                SudokuButtonInfo RightButtonInfo = new SudokuButtonInfo(k-1,0,"", new SolidColorBrush(Colors.Green));
+                SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString(), false);
+                SudokuButtonInfo TopButtonInfo = new SudokuButtonInfo(0, k - 1, "", new SolidColorBrush(Colors.Green));
+                SudokuButtonInfo RightButtonInfo = new SudokuButtonInfo(k - 1, 0, "", new SolidColorBrush(Colors.Green));
                 RadioButtonInfos.Add(RadioButtonInfo);
                 TopButtonInfos.Add(TopButtonInfo);
                 RightButtonInfos.Add(RightButtonInfo);
                 MenuItem mi = new MenuItem();
                 mi.Header = k.ToString();
                 mi.Click += Mi_Click;
-                
+
                 ((ContextMenu)Resources["SudokuMenu"]).Items.Add(mi);
 
             }
             //////////////////////////
-            
+
             for (int i = 0; i < BoardSize; i++)
             {
-                StarRowColoumnFormattedString += (i+",");
+                StarRowColoumnFormattedString += (i + ",");
                 for (int j = 0; j < BoardSize; j++)
                 {
-                    SudokuButtonInfo info = new SudokuButtonInfo(i,j,"", new SolidColorBrush(Colors.White));//this sets the row index and column index for the Grid inside the ItemsControl
+                    SudokuButtonInfo info = new SudokuButtonInfo(i, j, "", new SolidColorBrush(Colors.White));//this sets the row index and column index for the Grid inside the ItemsControl
                     SudokuButtonInfos.Add(info);
                 }
 
             }
-            
-          //Making the ItemsControl in the XAML use the SudokuInfoCollection for its source of button information
+
+            //Making the ItemsControl in the XAML use the SudokuInfoCollection for its source of button information
             SudokuButtonInfoCollection.Add(SudokuButtonInfos);
             SudokuGridLayout.ItemsSource = SudokuButtonInfoCollection;
 
@@ -108,7 +108,7 @@ namespace WindowsProgrammingWPFLab4
             RightButtonInfoCollection.Add(RightButtonInfos);
             RightGridLayout.ItemsSource = RightButtonInfoCollection;
 
-        
+
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
@@ -119,23 +119,20 @@ namespace WindowsProgrammingWPFLab4
                 TimeSpan ts = GameStopwatch.Elapsed;
                 TimerString = String.Format("{0:00}:{1:00}:{2:00}",
                     ts.Hours, ts.Minutes, ts.Seconds);
-               
-               
-                
+
+
+
             }
         }
 
         private void Mi_Click(object sender, RoutedEventArgs e)
         {
-            if (!GameTimer.IsEnabled && !GameStopwatch.IsRunning)
-            {
-                GameTimer.Start();
-                GameStopwatch.Start();
-            }
+
+
             MenuItem menuItem = sender as MenuItem;
-            ContextMenu menu = menuItem.Parent as ContextMenu;        
-            Button b = menu.PlacementTarget as Button;          
-            
+            ContextMenu menu = menuItem.Parent as ContextMenu;
+            Button b = menu.PlacementTarget as Button;
+
             string[] RowAndCol = DecodeTag(b.Tag.ToString());
             int row = int.Parse(RowAndCol[0]);
             int col = int.Parse(RowAndCol[1]);
@@ -145,13 +142,13 @@ namespace WindowsProgrammingWPFLab4
             // MessageBox.Show("Clicked on button with row: " + row+" And column: "+col);
 
             foreach (SudokuButtonInfo info in SudokuButtonInfos)
-             {
+            {
 
-                 if(info.RowIndex == row && info.ColumnIndex == col)
-                  {
+                if (info.RowIndex == row && info.ColumnIndex == col)
+                {
                     info.Name = (menuItem.Header as string);  //changing the property of the specific button so GUI can draw new button  
-                    
-                    if(RadioButtonInfos[int.Parse(info.Name) - 1].IsChecked)
+
+                    if (RadioButtonInfos[int.Parse(info.Name) - 1].IsChecked)
                     {
                         LinearGradientBrush myBrush = new LinearGradientBrush();
                         myBrush.GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
@@ -170,25 +167,25 @@ namespace WindowsProgrammingWPFLab4
                         ElementsInSameRow.Add(int.Parse(info.Name));
                         ElementsInSameColumn.Add(int.Parse(info.Name));
                     }
-                            
-                 }
-                 else if(info.RowIndex == row && !info.Name.Equals(""))
+
+                }
+                else if (info.RowIndex == row && !info.Name.Equals(""))
                     ElementsInSameRow.Add(int.Parse(info.Name));
-                 else if (info.ColumnIndex == col && !info.Name.Equals(""))
+                else if (info.ColumnIndex == col && !info.Name.Equals(""))
                     ElementsInSameColumn.Add(int.Parse(info.Name));
             }
 
-          if((ElementsInSameRow.Count() == ElementsInSameRow.Distinct().Count()))//means we have all unique elements
-            {              
+            if ((ElementsInSameRow.Count() == ElementsInSameRow.Distinct().Count()))//means we have all unique elements
+            {
                 RightButtonInfos[row].BackgroundColor = new SolidColorBrush(Colors.Green);
             }
             else
             {
                 RightButtonInfos[row].BackgroundColor = new SolidColorBrush(Colors.Red);
             }
-          //////Now we check the columns
+            //////Now we check the columns
             if ((ElementsInSameColumn.Count() == ElementsInSameColumn.Distinct().Count()))//means we have all unique elements
-            {              
+            {
                 TopButtonInfos[col].BackgroundColor = new SolidColorBrush(Colors.Green);
             }
             else
@@ -200,28 +197,28 @@ namespace WindowsProgrammingWPFLab4
             UpdateGameIsWon();
 
         }
-     
+
         public string[] DecodeTag(string s)//decoding the string of the button tag, row is left of "." and col is the right of "." 
         {
             string[] strings = new string[2];
             int l = s.IndexOf(".");
             if (l > 0)
             {
-              strings[0] = s.Substring(0, l);
+                strings[0] = s.Substring(0, l);
             }
             strings[1] = s.Substring(l + 1);
             return strings;
 
         }
 
-      
+
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
             string SelectedNumber = rb.Content as string;
             if (!RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked)
             {
-                
+
                 foreach (SudokuButtonInfo info in SudokuButtonInfos)
                 {
                     if (info.Name.Equals(SelectedNumber))
@@ -238,7 +235,7 @@ namespace WindowsProgrammingWPFLab4
                 }
                 RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked = true;
 
-                foreach(SudokuButtonInfo RadioInfo in RadioButtonInfos)//allow only 1 radio button to be selected, delete this loop in order to allow more than 1 to be selected
+                foreach (SudokuButtonInfo RadioInfo in RadioButtonInfos)//allow only 1 radio button to be selected, delete this loop in order to allow more than 1 to be selected
                 {
                     if (!RadioInfo.Name.Equals(SelectedNumber)) { RadioInfo.IsChecked = false; }
                 }
@@ -255,10 +252,10 @@ namespace WindowsProgrammingWPFLab4
 
                     }
                 }
-               
+
                 RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked = false;
             }
-           
+
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
@@ -299,16 +296,10 @@ namespace WindowsProgrammingWPFLab4
                 RaisePropertyChanged("TimerString");
             }
         }
-        public bool GameIsWon
-        {
-            get {return gameIsWon;}
-            set { gameIsWon = value;
-                RaisePropertyChanged("GameIsWon");
-            }
-        }
+
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
+
             NewGameWindow window = new NewGameWindow(16);
             window.Show();
             this.Close();
@@ -318,12 +309,21 @@ namespace WindowsProgrammingWPFLab4
         {
 
         }
+        public bool GameIsWon
+        {
+            get { return gameIsWon; }
+            set
+            {
+                gameIsWon = value;
+                RaisePropertyChanged("GameIsWon");
+            }
+        }
         public void UpdateGameIsWon()
         {
-            foreach(SudokuButtonInfo info in TopButtonInfos)
+            foreach (SudokuButtonInfo info in TopButtonInfos)
             {
                 SolidColorBrush scb = info.BackgroundColor as SolidColorBrush;
-                if(scb.Color == Colors.Red)
+                if (scb.Color == Colors.Red)
                 {
                     GameIsWon = false;
                     return;
