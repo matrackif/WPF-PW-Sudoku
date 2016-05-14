@@ -22,11 +22,17 @@ namespace WindowsProgrammingWPFLab4
     {
         public event PropertyChangedEventHandler PropertyChanged;
         string boardSize;
-        public BoardSizePrompt()
+        List<string> scores;
+        List<string> names;
+        Window parent;
+        public BoardSizePrompt(List<string> _scores,List<string> _names,Window ParentWindow)
         {
             InitializeComponent();
+            parent = ParentWindow;
             this.DataContext = this;
             boardSize = 2.ToString();
+            scores = _scores;
+            names = _names;
         }
         
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -54,6 +60,15 @@ namespace WindowsProgrammingWPFLab4
                 RaisePropertyChanged("BoardSize");
             }
         }
-       
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameWindow window = new NewGameWindow(int.Parse(BoardSize) * int.Parse(BoardSize), scores,names);
+            window.Show();
+            parent.Close();
+            this.Close();
+            
+            
+        }
     }
 }

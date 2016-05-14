@@ -40,7 +40,9 @@ namespace WindowsProgrammingWPFLab4
         List<SudokuButtonInfo> RadioButtonInfos;
         List<SudokuButtonInfo> TopButtonInfos;
         List<SudokuButtonInfo> RightButtonInfos;
-        public NewGameWindow(int bSize)
+        List<string> highScores;
+        List<string> names;
+        public NewGameWindow(int bSize, List<string> _scores, List<string> _names)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -65,7 +67,8 @@ namespace WindowsProgrammingWPFLab4
             TopButtonInfoCollection = new SudokuInfoCollection();
             RightButtonInfoCollection = new SudokuInfoCollection();
             ////////////////////////
-
+            highScores = _scores;
+            names = _names;
 
             for (int k = 1; k <= BoardSize; k++)
             {
@@ -300,14 +303,14 @@ namespace WindowsProgrammingWPFLab4
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
 
-            NewGameWindow window = new NewGameWindow(16);
-            window.Show();
-            this.Close();
+            BoardSizePrompt p = new BoardSizePrompt(highScores, names, this);
+            p.Show();
         }
 
         private void HighScoresMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            HighScoresWindow hsw = new HighScoresWindow(highScores, names);
+            hsw.Show();
         }
         public bool GameIsWon
         {
@@ -339,6 +342,21 @@ namespace WindowsProgrammingWPFLab4
                 }
             }
             GameIsWon = true;
+        }
+
+        private void WinButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameTimer.IsEnabled = false;
+            GameStopwatch.Stop();
+            highScores.Add(timerString);
+            NameInputWindow niw = new NameInputWindow();
+            niw.RaiseCustomEvent += new EventHandler<CustomEventArgs>(NameInputWindow_RaiseCustomEvent);//subscribing to a custom event so we can obtain the name inputted from that window
+            niw.Show();
+        }
+        public void NameInputWindow_RaiseCustomEvent(object sender, CustomEventArgs e)
+        {
+            names.Add(e.Message);
+            //MessageBox.Show(e.Message);
         }
     }
 }

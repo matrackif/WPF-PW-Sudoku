@@ -31,3 +31,7 @@ C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgramming
 C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\NewGameWindow.baml
 C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\BoardSizePrompt.g.cs
 C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\BoardSizePrompt.baml
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\HighScoresWindow.g.cs
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\HighScoresWindow.baml
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\NameInputWindow.g.cs
+C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\obj\Debug\NameInputWindow.baml

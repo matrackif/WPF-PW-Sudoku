@@ -31,6 +31,7 @@ namespace WindowsProgrammingWPFLab4
         public string StarRowColoumnFormattedString;
         public string timerString;
         public bool gameIsWon;
+
         DispatcherTimer GameTimer;
         Stopwatch GameStopwatch;
         SudokuInfoCollection TopButtonInfoCollection;
@@ -41,6 +42,9 @@ namespace WindowsProgrammingWPFLab4
         List<SudokuButtonInfo> RadioButtonInfos;
         List<SudokuButtonInfo> TopButtonInfos;
         List<SudokuButtonInfo> RightButtonInfos;
+
+        List<string> highScores;
+        List<string> names;
         public MainWindow()
         {
             InitializeComponent();
@@ -65,8 +69,9 @@ namespace WindowsProgrammingWPFLab4
             TopButtonInfoCollection = new SudokuInfoCollection();
             RightButtonInfoCollection = new SudokuInfoCollection();
             ////////////////////////
-          
 
+            highScores = new List<string>();
+            names = new List<string>();
             for (int k = 1; k <= BoardSize; k++)
             {
                 SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString(),false);
@@ -308,16 +313,15 @@ namespace WindowsProgrammingWPFLab4
         }
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            BoardSizePrompt p = new BoardSizePrompt();
+            BoardSizePrompt p = new BoardSizePrompt(highScores,names,this);
             p.Show();
-           // NewGameWindow window = new NewGameWind;ow(16);
-           // window.Show();
-          //  this.Close();
+          
         }
 
         private void HighScoresMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            HighScoresWindow hsw = new HighScoresWindow(highScores, names);
+            hsw.Show();
         }
         public void UpdateGameIsWon()
         {
@@ -341,5 +345,21 @@ namespace WindowsProgrammingWPFLab4
             }
             GameIsWon = true;
         }
+
+        private void WinButton_Click(object sender, RoutedEventArgs e)
+        {
+            GameTimer.IsEnabled = false;
+            GameStopwatch.Stop();
+            highScores.Add(timerString);
+            NameInputWindow niw = new NameInputWindow();
+            niw.RaiseCustomEvent += new EventHandler<CustomEventArgs>(NameInputWindow_RaiseCustomEvent);//subscribing to a custom event so we can obtain the name inputted from that window
+            niw.Show();
+        }
+        public void NameInputWindow_RaiseCustomEvent(object sender, CustomEventArgs e)
+        {
+            names.Add(e.Message);
+            //MessageBox.Show(e.Message);
+        }
+       
     }
 }
