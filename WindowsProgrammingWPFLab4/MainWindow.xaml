@@ -32,7 +32,7 @@
 
             <ColumnDefinition Width="420"/>
             <ColumnDefinition Width="50"/>
-            
+
             <ColumnDefinition Width="45"/>
         </Grid.ColumnDefinitions>
 
@@ -46,9 +46,9 @@
 
         <Menu x:Name="MainMenu" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="681" Grid.RowSpan="2" >
             <MenuItem Header="Main Menu">
-                <MenuItem Header="New Game"></MenuItem>
-                <MenuItem Header="High scores"></MenuItem>
-                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Name="NewGameMenuItem" Header="New Game"></MenuItem>
+                <MenuItem Name="HighScoresMenuItem" Header="High scores"></MenuItem>
+                <MenuItem Name="ExitMenuItem" Header="Exit" Click="ExitMenuItem_Click"></MenuItem>
             </MenuItem>
 
         </Menu>
@@ -84,7 +84,7 @@
                                 <Binding Path="ColumnIndex" />
                             </MultiBinding>
                         </Button.Tag>
-                        
+
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -111,7 +111,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton Content="{Binding Name}"  />
+                    <RadioButton Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=OneWay}" Checked="RadioButton_Checked" Click="RadioButton_Click"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -140,7 +140,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding Name}" Background="{Binding BackgroundColor}" >
-                       
+
                     </Button>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -173,6 +173,9 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <StatusBar Grid.ColumnSpan="4" HorizontalAlignment="Center" Height="37" Margin="0,0,-112,0" Grid.Row="4" VerticalAlignment="Bottom" Width="681">
+            <Button x:Name="WinButton" Content="Win" Width="75" RenderTransformOrigin="0.633,0.561"/>
+        </StatusBar>
 
     </Grid>
 

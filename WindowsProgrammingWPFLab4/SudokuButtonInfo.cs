@@ -14,6 +14,7 @@ namespace WindowsProgrammingWPFLab4
         int columnIndex;
         string name;
         Brush b;
+        bool _IsChecked;//for radio buttons only
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged(string propertyName)
@@ -26,10 +27,10 @@ namespace WindowsProgrammingWPFLab4
         public SudokuButtonInfo()
         {
         }
-        public SudokuButtonInfo(string _name)
+        public SudokuButtonInfo(string _name,bool _checked)//constructor for radio buttons
         {
             name = _name;
-           
+            _IsChecked = _checked;
         }
         public SudokuButtonInfo(int rowIdx,int colIdx, string _name,Brush br)
         {
@@ -54,6 +55,13 @@ namespace WindowsProgrammingWPFLab4
             set { name = value;
                 RaisePropertyChanged("Name");
             }
+        }
+        public bool IsChecked
+        {
+            get { return _IsChecked; }
+            set {
+                _IsChecked = value;
+                RaisePropertyChanged("IsChecked"); }
         }
         public Brush BackgroundColor
         {

@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+
 namespace WindowsProgrammingWPFLab4
 {
     /// <summary>
@@ -22,21 +24,9 @@ namespace WindowsProgrammingWPFLab4
     
     public partial class MainWindow : Window
     {
-
+        public event PropertyChangedEventHandler PropertyChanged;
         public int boardSize;
-        public string StarRowColoumnFormattedString;
-        public int BoardSize
-        {
-            get { return boardSize; }
-            set { boardSize = value; }
-        }
-        public string StarRowsAndColumns
-        {
-            get { return StarRowColoumnFormattedString; }
-            set { StarRowColoumnFormattedString = value; }
-        }
-
-      
+        public string StarRowColoumnFormattedString;        
         SudokuInfoCollection TopButtonInfoCollection;
         SudokuInfoCollection RightButtonInfoCollection;    
         SudokuInfoCollection SudokuButtonInfoCollection;
@@ -65,7 +55,7 @@ namespace WindowsProgrammingWPFLab4
 
             for (int k = 1; k <= BoardSize; k++)
             {
-                SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString());
+                SudokuButtonInfo RadioButtonInfo = new SudokuButtonInfo(k.ToString(),false);
                 SudokuButtonInfo TopButtonInfo = new SudokuButtonInfo(0,k-1,"",new SolidColorBrush(Colors.Green));
                 SudokuButtonInfo RightButtonInfo = new SudokuButtonInfo(k-1,0,"", new SolidColorBrush(Colors.Green));
                 RadioButtonInfos.Add(RadioButtonInfo);
@@ -93,7 +83,7 @@ namespace WindowsProgrammingWPFLab4
             
           //Making the ItemsControl in the XAML use the SudokuInfoCollection for its source of button information
             SudokuButtonInfoCollection.Add(SudokuButtonInfos);
-            SudokuGridLayout.ItemsSource = SudokuCollection;
+            SudokuGridLayout.ItemsSource = SudokuButtonInfoCollection;
 
             RadioButtonInfoCollection.Add(RadioButtonInfos);
             RadioButtonLayout.ItemsSource = RadioButtonInfoCollection;
@@ -130,13 +120,28 @@ namespace WindowsProgrammingWPFLab4
 
                  if(info.RowIndex == row && info.ColumnIndex == col)
                   {
-                    info.Name = (menuItem.Header as string);
+                    info.Name = (menuItem.Header as string);  //changing the property of the specific button so GUI can draw new button  
+                    
+                    if(RadioButtonInfos[int.Parse(info.Name) - 1].IsChecked)
+                    {
+                        LinearGradientBrush myBrush = new LinearGradientBrush();
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+
+                        info.BackgroundColor = myBrush; //now we have to check if the radio button that corresponds to this number is selected or not
+                    }
+                    else
+                    {
+                        SolidColorBrush myBrush = new SolidColorBrush(Colors.White);
+                        info.BackgroundColor = myBrush;
+                    }
                     if (!info.Name.Equals(""))
                     {
                         ElementsInSameRow.Add(int.Parse(info.Name));
                         ElementsInSameColumn.Add(int.Parse(info.Name));
                     }
-                    //changing the property of the specific button so GUI can draw new button            
+                            
                  }
                  else if(info.RowIndex == row && !info.Name.Equals(""))
                     ElementsInSameRow.Add(int.Parse(info.Name));
@@ -170,11 +175,8 @@ namespace WindowsProgrammingWPFLab4
 
 
         }
-        public SudokuInfoCollection SudokuCollection
-        {
-            get { return SudokuButtonInfoCollection; }
-        }
-        public string[] DecodeTag(string s)//decoding the string of the button tag, row is left of "." and col is the right of "."
+     
+        public string[] DecodeTag(string s)//decoding the string of the button tag, row is left of "." and col is the right of "." 
         {
             string[] strings = new string[2];
             int l = s.IndexOf(".");
@@ -185,6 +187,88 @@ namespace WindowsProgrammingWPFLab4
             strings[1] = s.Substring(l + 1);
             return strings;
 
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+          
+                
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            string SelectedNumber = rb.Content as string;
+            if (!RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked)
+            {
+                
+                foreach (SudokuButtonInfo info in SudokuButtonInfos)
+                {
+                    if (info.Name.Equals(SelectedNumber))
+                    {
+
+                        LinearGradientBrush myBrush = new LinearGradientBrush();
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Yellow, 0.0));
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Orange, 0.5));
+                        myBrush.GradientStops.Add(new GradientStop(Colors.Red, 1.0));
+
+                        info.BackgroundColor = myBrush;
+
+                    }
+                }
+                RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked = true;
+
+                foreach(SudokuButtonInfo RadioInfo in RadioButtonInfos)//allow only 1 radio button to be selected, delete this loop in order to allow more than 1 to be selected
+                {
+                    if (!RadioInfo.Name.Equals(SelectedNumber)) { RadioInfo.IsChecked = false; }
+                }
+            }
+            else
+            {
+                foreach (SudokuButtonInfo info in SudokuButtonInfos)
+                {
+                    if (info.Name.Equals(SelectedNumber))
+                    {
+
+                        SolidColorBrush myBrush = new SolidColorBrush(Colors.White);
+                        info.BackgroundColor = myBrush;
+
+                    }
+                }
+               
+                RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked = false;
+            }
+           
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        protected virtual void RaisePropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public int BoardSize
+        {
+            get { return boardSize; }
+            set
+            {
+                boardSize = value;
+                RaisePropertyChanged("BoardSize");
+            }
+        }
+        public string StarRowsAndColumns
+        {
+            get { return StarRowColoumnFormattedString; }
+            set
+            {
+                StarRowColoumnFormattedString = value;
+                RaisePropertyChanged("StarRowsAndColumns");
+            }
         }
 
     }
