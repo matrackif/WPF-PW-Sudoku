@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Politechnika\Windows Programming\WindowsProgrammingWPFLab4\WindowsProgrammingWPFLab4\App.xaml
-2-1036652792
+3419783004
 
-14-1873105103
+16-1934983285
 13738642453
-MainWindow.xaml;NewGameWindow.xaml;
+BoardSizePrompt.xaml;MainWindow.xaml;NewGameWindow.xaml;
 
 True
 

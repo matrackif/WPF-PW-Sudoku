@@ -308,10 +308,11 @@ namespace WindowsProgrammingWPFLab4
         }
         private void NewGameMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
-            NewGameWindow window = new NewGameWindow(16);
-            window.Show();
-            this.Close();
+            BoardSizePrompt p = new BoardSizePrompt();
+            p.Show();
+           // NewGameWindow window = new NewGameWind;ow(16);
+           // window.Show();
+          //  this.Close();
         }
 
         private void HighScoresMenuItem_Click(object sender, RoutedEventArgs e)

@@ -55,12 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoardSizePrompt.xaml.cs">
+      <DependentUpon>BoardSizePrompt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BoardSizeRule.cs" />
     <Compile Include="NewGameWindow.xaml.cs">
       <DependentUpon>NewGameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SudokuButtonInfo.cs" />
     <Compile Include="RowColumnToTagConverter.cs" />
     <Compile Include="SudokuInfoCollection.cs" />
+    <Page Include="BoardSizePrompt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
