@@ -29,6 +29,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label x:Name="label1" Content="Score" HorizontalAlignment="Left" Margin="161,2,0,0" VerticalAlignment="Top" Width="121"/>
 
     </Grid>
 </Window>
