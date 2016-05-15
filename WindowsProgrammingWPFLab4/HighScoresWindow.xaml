@@ -6,7 +6,7 @@
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:WindowsProgrammingWPFLab4"
         mc:Ignorable="d"
-        Title="HighScoresWindow" Height="300" Width="300">
+        Title="HighScoresWindow" Height="300" Width="300" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="SortedItems" Source="{Binding Path=Entries}">
             <CollectionViewSource.SortDescriptions>
