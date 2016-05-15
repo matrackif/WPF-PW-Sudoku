@@ -375,7 +375,7 @@ namespace WindowsProgrammingWPFLab4
                 MessageBox.Show("Name had no characters and was not added to high scores!");
             }
             
-            //MessageBox.Show(e.Message);
+           
         }
        
     }
