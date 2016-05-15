@@ -250,20 +250,21 @@ namespace WindowsProgrammingWPFLab4
             }
             else
             {
-                foreach (SudokuButtonInfo info in SudokuButtonInfos)
-                {
-                    if (info.Name.Equals(SelectedNumber))
-                    {
-
-                        SolidColorBrush myBrush = new SolidColorBrush(Colors.White);
-                        info.BackgroundColor = myBrush;
-
-                    }
-                }
+             
                
                 RadioButtonInfos[int.Parse(SelectedNumber) - 1].IsChecked = false;
             }
-           
+            foreach (SudokuButtonInfo info in SudokuButtonInfos)
+            {
+                if (!info.Name.Equals(SelectedNumber))
+                {
+
+                    SolidColorBrush myBrush = new SolidColorBrush(Colors.White);
+                    info.BackgroundColor = myBrush;
+
+                }
+            }
+
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)

@@ -35,7 +35,7 @@ namespace WindowsProgrammingWPFLab4
                 if(i%2 == 0)
                     entries.Add(new HighScoreEntry() { Name = names[i],HighScore = highScores[i], BrushColor = new SolidColorBrush(Colors.Blue)});
                 else
-                    entries.Add(new HighScoreEntry() { Name = names[i], HighScore = highScores[i], BrushColor = new SolidColorBrush(Colors.Pink) });
+                    entries.Add(new HighScoreEntry() { Name = names[i], HighScore = highScores[i], BrushColor = new SolidColorBrush(Colors.DarkOrange) });
             }
 
             //HighScoreListBox.ItemsSource = entries;

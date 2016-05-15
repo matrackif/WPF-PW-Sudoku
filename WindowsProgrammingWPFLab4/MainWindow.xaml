@@ -175,7 +175,6 @@
                 <Label x:Name="TimerLabel" Content="{Binding Path=TimerString}" Margin="450,0,0,0"/>
             </Label>
         </StatusBar>
-
     </Grid>
 
 </Window>
