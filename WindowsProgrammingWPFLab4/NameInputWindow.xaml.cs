@@ -57,7 +57,11 @@ namespace WindowsProgrammingWPFLab4
                 RaisePropertyChanged("Name");
             }
         }
-        
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            NameBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
     }
     public class CustomEventArgs : EventArgs
     {

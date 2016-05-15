@@ -360,16 +360,19 @@ namespace WindowsProgrammingWPFLab4
         }
         public void NameInputWindow_RaiseCustomEvent(object sender, CustomEventArgs e)
         {
-            if (e.Message.Length < 1)
-                highScores.RemoveAt(highScores.Count - 1);//if we get empty string dont add to list
-            else
+            if (e.Message.Length > 0)
             {
                 names.Add(e.Message);
+                highScores.Add(timerString);
                 HighScoresWindow hsw = new HighScoresWindow(highScores, names);
                 hsw.Show();
             }
-               
-            //MessageBox.Show(e.Message);
+            else
+            {
+
+                MessageBox.Show("Name had no characters and was not added to high scores!");
+            }
+
         }
     }
 }

@@ -355,16 +355,26 @@ namespace WindowsProgrammingWPFLab4
         {
             GameTimer.IsEnabled = false;
             GameStopwatch.Stop();
-            highScores.Add(timerString);
+            
             NameInputWindow niw = new NameInputWindow();
             niw.RaiseCustomEvent += new EventHandler<CustomEventArgs>(NameInputWindow_RaiseCustomEvent);//subscribing to a custom event so we can obtain the name inputted from that window
             niw.Show();
         }
         public void NameInputWindow_RaiseCustomEvent(object sender, CustomEventArgs e)
         {
-            names.Add(e.Message);
-            HighScoresWindow hsw = new HighScoresWindow(highScores, names);
-            hsw.Show();
+            if(e.Message.Length > 0)
+            {
+                names.Add(e.Message);
+                highScores.Add(timerString);
+                HighScoresWindow hsw = new HighScoresWindow(highScores, names);
+                hsw.Show();
+            }
+            else
+            {
+             
+                MessageBox.Show("Name had no characters and was not added to high scores!");
+            }
+            
             //MessageBox.Show(e.Message);
         }
        
